@@ -97,9 +97,35 @@ var totalMonths = finances.length;
 
   // Net total for Profit/Losses over entire period
   var netTotalProfitLosses = 0;
+  var previousProfitOrLoss = 0;
+  var totalChange = 0;
+  var currentChange = 0;
+  var greatestIncrease = 0;
+  var greatestDecrease = 0;
+  var greatestIncreaseMonth = "";
+  var greatestDecreaseMonth = "";
   for (var i=0; i < totalMonths; i++) {
     netTotalProfitLosses += finances[i][1];
+    currentChange = finances[i][1] - previousProfitOrLoss;
+    totalChange += currentChange; //totalChange = totalChange + currentChange
+    previousProfitOrLoss = finances[i][1];
+    if(currentChange > greatestIncrease) {
+      greatestIncrease = currentChange;
+      greatestIncreaseMonth = finances [i] [0];
+    }
+    if(currentChange < greatestDecrease) {
+      greatestDecrease = currentChange;
+      greatestDecreaseMonth = finances [i] [0];
+    }
   }
 // display what the net profit/loss is
   console.log("The total is: " + netTotalProfitLosses);
+  
 
+var averageChange = totalChange/totalMonths;
+console.log("Average Change: ", averageChange);
+
+console.log("Greatest Increase in Profits/Losses: "+ greatestIncreaseMonth + " $" + greatestIncrease);
+console.log("Greatest Decrease in Profits/Losses: " + greatestDecreaseMonth + " $" + greatestDecrease);
+
+  
