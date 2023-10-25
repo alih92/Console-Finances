@@ -95,8 +95,12 @@ console.log("---------------");
 var totalMonths = finances.length;        
   console.log("Total months: " + totalMonths); 
 
-  // Net total for Profit/Losses over entire period
-  var netTotalProfitLosses = 0;
+// calculate changes between months
+// sum of the changes
+// average of the total changes
+
+ 
+  var TotalProfitLosses = 0;
   var previousProfitOrLoss = 0;
   var totalChange = 0;
   var currentChange = 0;
@@ -105,27 +109,29 @@ var totalMonths = finances.length;
   var greatestIncreaseMonth = "";
   var greatestDecreaseMonth = "";
   for (var i=0; i < totalMonths; i++) {
-    netTotalProfitLosses += finances[i][1];
-    currentChange = finances[i][1] - previousProfitOrLoss;
-    totalChange += currentChange; //totalChange = totalChange + currentChange
-    previousProfitOrLoss = finances[i][1];
+    TotalProfitLosses += finances[i][1];  // Net total for Profit/Losses over entire period TotalProfitLosses = TotalProfitLoss + all of amount column
+    currentChange = finances[i][1] - previousProfitOrLoss; // current change updating with each loop as the previous month is subtracted 
+    totalChange += currentChange; //totalChange = totalChange + currentChange 
+    previousProfitOrLoss = finances[i][1]; 
     if(currentChange > greatestIncrease) {
       greatestIncrease = currentChange;
-      greatestIncreaseMonth = finances [i] [0];
+      greatestIncreaseMonth = finances [i][0];
     }
     if(currentChange < greatestDecrease) {
       greatestDecrease = currentChange;
-      greatestDecreaseMonth = finances [i] [0];
+      greatestDecreaseMonth = finances [i][0];
     }
   }
 // display what the net profit/loss is
-  console.log("The total is: " + netTotalProfitLosses);
+  console.log("The total is: " + "$" + TotalProfitLosses);
   
-
-var averageChange = totalChange/totalMonths;
+// average change total
+var averageChange = Math.round(totalChange/(totalMonths-1) * 100) / 100;
 console.log("Average Change: ", averageChange);
 
+//  dis[lay the greatest increase month
 console.log("Greatest Increase in Profits/Losses: "+ greatestIncreaseMonth + " $" + greatestIncrease);
+// display the greatest decrease month
 console.log("Greatest Decrease in Profits/Losses: " + greatestDecreaseMonth + " $" + greatestDecrease);
 
   
